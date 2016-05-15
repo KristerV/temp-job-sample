@@ -10,6 +10,7 @@ $namesToCheck = array(
 	"Peeter Pendel", 							// No match (just double checking)
 	"Master of Command Gabriel robert Mugabe", 	// Noiseword test
 	"abid bid hamid ha", 						// Names are closely similar
+	"abid !,,..#.,,,bid h'a'm'i'd ha", 			// Heavy punctuation
 	"f. islamice salvării"); 					// Abbreviated names
 
 // Program run order
@@ -66,13 +67,10 @@ function sanitizeName($name) {
 	$name = strtolower($name);
 
 	// Remove punctuation
-	// $name = preg_replace('/[^\pL\s]+/i', '-', $name); // better, but seems to break unicode letters
-	$name = preg_replace('/[\.,\'#@\s]+/i', ' ', $name);
+	$name = preg_replace("/[!?\.,'#@]/", '', $name);
 
-	////////////////////////////////////////
-	////// Array manipulation START ////////
-
-	$nameArray = preg_split('/\s+/', $name); // also handle multiple spaces
+	// Prepare for array manipulation
+	$nameArray = preg_split('/\s+/', $name);
 
 	// Remove noise words
 	$nameArray = array_diff($nameArray, $noisewords);
@@ -81,9 +79,6 @@ function sanitizeName($name) {
 	sort($nameArray);
 
 	$name = implode(" ", $nameArray);
-
-	//////  Array manipulation END  ////////
-	////////////////////////////////////////
 
 	return $name;
 }
