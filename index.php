@@ -67,7 +67,7 @@ function sanitizeName($name) {
 	$name = strtolower($name);
 
 	// Remove punctuation
-	$name = preg_replace("/[!?\.,'#@]/", '', $name);
+	$name = preg_replace("/[!?\.,'#@]+/", '', $name);
 
 	// Prepare for array manipulation
 	$nameArray = preg_split('/\s+/', $name);
