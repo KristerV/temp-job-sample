@@ -9,3 +9,4 @@ mr.
 ms.
 and
 or
+master of command
