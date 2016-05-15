@@ -3,10 +3,20 @@
 // Program input
 $blacklistFilename = 'global.fsd.xml'; // Blacklist XML file from http://www.basistech.com/text-analytics/rosette/name-indexer/#
 $noisewordsFilename = 'noise.txt';
+$namesToCheck = array("gabriel robert mugabe", "saddam al-tikriti hussein");
 
 // Program run order
 $noisewords = importNoiseWords($noisewordsFilename);
 $blacklist = importBlacklistXML($blacklistFilename);
+printMatches($namesToCheck);
+
+
+function importNoiseWords($filename) {
+	$contents = file_get_contents($filename);
+	$contents = strtolower($contents); // unify with matching
+	$wordsArray = explode("\n", $contents);
+	return $wordsArray;
+}
 
 function importBlacklistXML($filename) {
 
@@ -33,12 +43,6 @@ function importBlacklistXML($filename) {
 	return $blacklist;
 }
 
-function importNoiseWords($filename) {
-	$contents = file_get_contents($filename);
-	$contents = strtolower($contents); // unify with matching
-	$wordsArray = explode("\n", $contents);
-	return $wordsArray;
-}
 
 function sanitizeName($name) {
 	global $noisewords;
@@ -61,8 +65,17 @@ function sanitizeName($name) {
 	return $name;
 }
 
-print '<pre>';
-print_r($blacklist);
-print '</pre>';
+function printMatches($list) {
+	global $blacklist;
+
+	print '<pre>';
+	foreach ($list as $name) {
+		$name = sanitizeName($name);
+		if (in_array($name, $blacklist)) {
+			print_r("$name\n");
+		}
+	}
+	print '</pre>';
+}
 
 ?>

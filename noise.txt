@@ -7,3 +7,5 @@ mr
 ms
 mr.
 ms.
+and
+or
