@@ -20,7 +20,7 @@ printMatches($namesToCheck);
 
 // Print blacklist for debugging purposes
 print '<h3>Imported blacklist</h3>';
-print '<pre>Source: http://www.basistech.com/text-analytics/rosette/name-indexer/#<br/>';
+print '<pre>Source: http://eeas.europa.eu/cfsp/sanctions/consol-list/index_en.htm<br/>';
 print_r($blacklist);
 print '</pre>';
 
